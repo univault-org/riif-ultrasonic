@@ -1,0 +1,80 @@
+# Compiled object files
+*.o
+*.obj
+
+# Compiled dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Compiled static libraries
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+
+# Build directories
+build/
+bin/
+lib/
+
+# CMake generated files
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+
+# IDE specific files
+.vscode/
+.idea/
+*.swp
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Dependency directories
+deps/
+external/
+
+# Logs and databases
+*.log
+*.sql
+*.sqlite
+
+# User-specific files
+*.user
+*.userosscache
+*.sln.docstates
+
+# Debug files
+*.dSYM/
+*.su
+*.idb
+*.pdb
+
+# Kernel Module Compile Results
+*.mod*
+*.cmd
+.tmp_versions/
+modules.order
+Module.symvers
+Mkfile.old
+dkms.conf
+
+# Google Test generated files
+googletest-build/
+googletest-download/
+googletest-src/
+
+# Temporary files
+*.tmp
+*.temp
