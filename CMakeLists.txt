@@ -27,6 +27,7 @@ add_library(riif_ultrasonic_lib STATIC ${RIIF_ULTRASONIC_SOURCES})
 target_include_directories(riif_ultrasonic_lib PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/include
     ${CMAKE_CURRENT_SOURCE_DIR}/src
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/reed-solomon 
 )
 
 # Tests

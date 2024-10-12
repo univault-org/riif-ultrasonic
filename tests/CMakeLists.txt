@@ -4,7 +4,7 @@ include_directories(${GTEST_INCLUDE_DIRS})
 
 # RIIF Ultrasonic Test
 add_executable(test_riif_ultrasonic
-    test_riif_ultrasonic.cpp
+    test_ultrasonic_core.cpp
     ${COMMON_TEST_SOURCES}
 )
 

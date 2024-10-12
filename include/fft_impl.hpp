@@ -80,6 +80,10 @@ Appendix :
     w[] and ip[] are compatible with all routines.
 */
 
+#include <iostream>
+#include <algorithm>
+#include <cmath>
+
 void rdft(int n, int isgn, float *a, int *ip, float *w)
 {
     void makewt(int nw, int *ip, float *w);
@@ -397,6 +401,7 @@ void cftfsub(int n, float *a, float *w)
     void cftmdl(int n, int l, float *a, float *w);
     int j, j1, j2, j3, l;
     float x0r, x0i, x1r, x1i, x2r, x2i, x3r, x3i;
+
 
     l = 2;
     if (n > 8) {
