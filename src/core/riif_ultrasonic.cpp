@@ -8,11 +8,13 @@
 #include <iomanip>
 #include <bitset>
 #include <deque>
+#include <chrono>
 
 const double PI = 3.14159265358979323846;
 
-RiifUltrasonic::RiifUltrasonic() : m_current_byte(0), m_bit_count(0)
+RiifUltrasonic::RiifUltrasonic() : m_current_byte(0), m_bit_count(0), rs(nullptr), rs_work_buffer(nullptr)
 {
+    std::cout << "Entering RiifUltrasonic constructor..." << std::endl;
     m_params = {
         DEFAULT_SAMPLE_RATE,
         DEFAULT_SAMPLES_PER_FRAME,
@@ -25,8 +27,7 @@ RiifUltrasonic::RiifUltrasonic() : m_current_byte(0), m_bit_count(0)
         DEFAULT_RS_ECC_LENGTH,
         DEFAULT_PREAMBLE_DURATION};
     initializeFrequencies();
-    rs_work_buffer = new uint8_t[RS::ReedSolomon::getWorkSize_bytes(m_params.rsMsgLength, m_params.rsEccLength)];
-    rs = new RS::ReedSolomon(m_params.rsMsgLength, m_params.rsEccLength, rs_work_buffer);
+    std::cout << "RiifUltrasonic constructor completed." << std::endl;
 }
 
 RiifUltrasonic::~RiifUltrasonic()
@@ -37,12 +38,48 @@ RiifUltrasonic::~RiifUltrasonic()
 
 void RiifUltrasonic::setParameters(const Parameters &params)
 {
+    std::cout << "Entering setParameters..." << std::endl;
+
     m_params = params;
+    std::cout << "Parameters assigned." << std::endl;
+
     initializeFrequencies();
-    delete rs;
-    delete[] rs_work_buffer;
-    rs_work_buffer = new uint8_t[RS::ReedSolomon::getWorkSize_bytes(m_params.rsMsgLength, m_params.rsEccLength)];
+    std::cout << "Frequencies initialized." << std::endl;
+
+    std::cout << "Checking existing objects..." << std::endl;
+
+    // Safely delete existing objects
+    if (rs != nullptr) {
+        std::cout << "Deleting existing RS object..." << std::endl;
+        delete rs;
+        rs = nullptr;
+        std::cout << "Deleted existing RS object." << std::endl;
+    } else {
+        std::cout << "No existing RS object to delete." << std::endl;
+    }
+
+    if (rs_work_buffer != nullptr) {
+        std::cout << "Deleting existing RS work buffer..." << std::endl;
+        delete[] rs_work_buffer;
+        rs_work_buffer = nullptr;
+        std::cout << "Deleted existing RS work buffer." << std::endl;
+    } else {
+        std::cout << "No existing RS work buffer to delete." << std::endl;
+    }
+
+    std::cout << "Calculating RS work size..." << std::endl;
+    size_t work_size = RS::ReedSolomon::getWorkSize_bytes(m_params.rsMsgLength, m_params.rsEccLength);
+    std::cout << "RS work size calculated: " << work_size << " bytes" << std::endl;
+
+    std::cout << "Allocating RS work buffer..." << std::endl;
+    rs_work_buffer = new uint8_t[work_size];
+    std::cout << "RS work buffer allocated." << std::endl;
+
+    std::cout << "Creating new RS object..." << std::endl;
     rs = new RS::ReedSolomon(m_params.rsMsgLength, m_params.rsEccLength, rs_work_buffer);
+    std::cout << "RS object created." << std::endl;
+
+    std::cout << "setParameters completed successfully." << std::endl;
 }
 
 void RiifUltrasonic::initializeFrequencies()
@@ -329,4 +366,9 @@ std::vector<float> RiifUltrasonic::normalizeSpectrum(const std::vector<float> &s
         normalized_spectrum[i] = spectrum[i] / max_magnitude;
     }
     return normalized_spectrum;
+}
+
+const RiifUltrasonic::Parameters& RiifUltrasonic::getParameters() const
+{
+    return m_params;
 }

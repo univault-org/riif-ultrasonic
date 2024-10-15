@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "riif_ultrasonic.h"
+#include "../include/riif_ultrasonic.h"
 #include <vector>
 #include <cstdint>
 #include <string>

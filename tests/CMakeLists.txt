@@ -20,7 +20,7 @@ target_link_libraries(test_riif_ultrasonic
     PRIVATE
         GTest::GTest
         GTest::Main
-        riif_ultrasonic_lib
+        riif_ultrasonic
 )
 
 # POS Protocol Test

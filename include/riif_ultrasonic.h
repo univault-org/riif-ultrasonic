@@ -28,6 +28,7 @@ public:
     };
 
     void setParameters(const Parameters& params);
+    const Parameters& getParameters() const;
 
 private:
     Parameters m_params;
